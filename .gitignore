@@ -38,6 +38,8 @@ bower_components
 build/Release
 
 # Dependency directories
+.idea
+nuresolutions.iml
 node_modules/
 jspm_packages/
 
