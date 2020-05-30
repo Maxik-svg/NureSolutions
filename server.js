@@ -21,7 +21,7 @@ mongoose.connect(uri, {
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(`MongoDb connection established successfully`);
-});
+}); 
 
 const ExercisesRouter = require('./routes/exercises');
 const UsersRouter = require('./routes/users');
