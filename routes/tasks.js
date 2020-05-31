@@ -78,4 +78,13 @@ router.route('/markAsDone/:id').post(authMiddleWare, (req, res) => {
         })
 });
 
+router.route('/getSortedTasks/byDate/:userId').get(authMiddleWare, (req, res) => {
+    Task.find({userId: req.params.userId, isCompleted: true})
+        .then(tasks => {
+            tasks.sort((a,b) => Number(Date.parse(a.updatedAt) - Date.parse(b.updatedAt)));
+            res.json(tasks.reverse());
+        })
+        .catch(err => res.status(400).json('Error: ' + err))
+});
+
 module.exports = router;
