@@ -31,9 +31,9 @@ router.route('/register').post((req, res) => {
       email
    });
 
-   newUser.save()
-       .then(() => res.json('Added Succesfully'))
-       .catch(err => res.status(400).json('Error' + err))
+newUser.save()
+    .then(() => res.json('Added Succesfully'))
+    .catch(err => res.status(400).json('Error' + err))
 });
 
 router.route('/login').post( (req, res) => {

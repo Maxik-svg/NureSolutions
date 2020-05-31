@@ -1,10 +1,10 @@
 const router = require('express').Router();
-let Exercise = require('../models/exercise.model');
+let Task = require('../models/task.model');
 
 //const middleAuth = require('../middleware/auth');
 
 router.route('/').get((req, res) => {
-    Exercise.find()
+    Task.find()
         .then(exercise => res.json(exercise))
         .catch(err => res.status(400).json('Error: ' + err))
 });
@@ -15,7 +15,7 @@ router.route('/add').post((req, res) => {
     const duration = Number(req.body.duration);
     const date = Date.parse(req.body.date);
 
-    const NewExercise = new Exercise({
+    const NewTask = new Task({
         username,
         description,
         duration,
@@ -23,26 +23,26 @@ router.route('/add').post((req, res) => {
     });
 
 
-    NewExercise.save()
+    NewTask.save()
         .then(() => res.json('Added Succesfully'))
         .catch(err => res.status(400).json('Error' + err));
 });
 
 
 router.route('/:id').get((req, res) => {
-   Exercise.findById(req.params.id)
+   Task.findById(req.params.id)
        .then(exercise => res.json(exercise))
        .catch(err => res.status(400).json('Error' + err));
 });
 
 router.route('/:id').delete((req, res) => {
-   Exercise.findByIdAndDelete(req.params.id)
-       .then(() => res.json('Exercise deleted'))
+   Task.findByIdAndDelete(req.params.id)
+       .then(() => res.json('Task deleted'))
        .catch(err => res.status(400).json('Error' + err));
 });
 
 router.route('/update/:id').post((req, res) => {
-   Exercise.findById(req.params.id)
+   Task.findById(req.params.id)
        .then(exercise => {
          exercise.username = req.body.username;
          exercise.description = req.body.description;

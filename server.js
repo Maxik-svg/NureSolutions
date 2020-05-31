@@ -21,14 +21,14 @@ mongoose.connect(uri, {
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(`MongoDb connection established successfully`);
-}); 
+});
 
-const ExercisesRouter = require('./routes/exercises');
+const TaskssRouter = require('./routes/tasks');
 const UsersRouter = require('./routes/users');
 const ProjectsRouter = require('./routes/projects');
 
 
-app.use('/exercises', ExercisesRouter);
+app.use('/tasks', TaskssRouter);
 app.use('/users', UsersRouter);
 app.use('/projects', ProjectsRouter);
 
