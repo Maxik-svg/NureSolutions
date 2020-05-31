@@ -11,11 +11,11 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const name = req.body.name;
-    const userId = req.body.username;
+    const userId = req.body.userId;
     const description = req.body.description;
-    const date_start = Number(req.body.date_start);
+    const date_start = Date.parse(req.body.date_start);
     const date_end = Date.parse(req.body.date_end);
-    const isCompleted = Date.parse(req.body.isCompleted);
+    const isCompleted = req.body.isCompleted;
 
 
     const NewTask = new Task({
