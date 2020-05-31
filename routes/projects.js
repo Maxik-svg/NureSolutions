@@ -14,7 +14,7 @@ router.route('/:id').get(authMiddleWare, (req, res) =>{
         .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error' + err));
     User.findById(req.params.id)
-        .then(data => res.json(data))
+        .then(data => res["user"].json(data))
         .catch(err => res.status(400).json('Error' + err));
 });
 
