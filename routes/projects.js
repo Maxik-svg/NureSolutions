@@ -17,7 +17,7 @@ router.route('/').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/info/:id').get(authMiddleWare, (req, res) =>{
+router.route('/:id').get(authMiddleWare, (req, res) =>{
     Project.find({administrator: req.params.id})
         .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error' + err));

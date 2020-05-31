@@ -37,7 +37,7 @@ router.route('/add').post(authMiddleWare, (req, res) => {
 });
 
 
-router.route('/info/:id').get(authMiddleWare, (req, res) => {
+router.route('/:id').get(authMiddleWare, (req, res) => {
    Task.findById(req.params.id)
        .then(task => res.json(task))
        .catch(err => res.status(400).json('Error' + err));
