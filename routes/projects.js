@@ -17,22 +17,10 @@ router.route('/').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/:id').get(authMiddleWare, (req, res) =>{
-    //let data = {projects:[]};
-
+router.route('/info/:id').get(authMiddleWare, (req, res) =>{
     Project.find({administrator: req.params.id})
         .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error' + err));
-    /*User.findById(req.params.id)
-        .then(user => {
-            for (let i = 0; i < data.projects.length; i++){
-                data.projects[i].user = user;
-            }
-
-            //data.user = user;
-            return res.json(data);
-        })
-        .catch(err => res.status(400).json('Error' + err));*/
 });
 
 router.route('/:name').get(authMiddleWare, (req, res) =>{
