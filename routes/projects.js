@@ -9,12 +9,18 @@ router.route('/').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/:id').get(authMiddleWare, (req, res) =>{
+router.route('/:id').get( (req, res) =>{
+    let data = {project:[], user:[]};
+
+
     Project.find({administrator: req.params.id})
-        .then(projects => res.json(projects))
+        .then(projects => data.project = projects)
         .catch(err => res.status(400).json('Error' + err));
     User.findById(req.params.id)
-        .then(data => res["user"].json(data))
+        .then(user => {
+            data.user = user;
+            return res.json(data);
+        })
         .catch(err => res.status(400).json('Error' + err));
 });
 
