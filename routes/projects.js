@@ -10,17 +10,21 @@ router.route('/').get(authMiddleWare, (req, res) => {
 });
 
 router.route('/:id').get(authMiddleWare, (req, res) =>{
-    let data = {projects:[], user:[]};
+    let data = {projects:[]};
 
     Project.find({administrator: req.params.id})
-        .then(projects => data.projects = projects)
+        .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error' + err));
-    User.findById(req.params.id)
+    /*User.findById(req.params.id)
         .then(user => {
-            data.user = user;
+            for (let i = 0; i < data.projects.length; i++){
+                data.projects[i].user = user;
+            }
+
+            //data.user = user;
             return res.json(data);
         })
-        .catch(err => res.status(400).json('Error' + err));
+        .catch(err => res.status(400).json('Error' + err));*/
 });
 
 router.route('/:name').get(authMiddleWare, (req, res) =>{
