@@ -4,7 +4,7 @@ let Task = require('../models/task.model');
 let User = require('../models/user.model');
 const authMiddleWare = require('../middleware/auth');
 
-router.route('/getTasksForDev').get(authMiddleWare, (req, res) => {
+router.route('/getTasksForDev').post(authMiddleWare, (req, res) => {
     Task.find({userId: req.body.userId,
         projectId: req.body.projId})
         .then(task => res.json(task))
