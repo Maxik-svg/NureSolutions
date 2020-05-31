@@ -91,13 +91,17 @@ router.route('/findTasks').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error' + err))
 });
 
-router.route('/addDev/:projId/:userId').post(authMiddleWare, (req, res) => {
-    Project.findById(req.params.projId)
-        .then(proj => {
-            proj.developers.push(req.params.userId);
+router.route('/addDev').post((req, res) => {
+    let devs;
 
+    Project.findById(req.body.projId)
+        .then(proj => {
+                devs = proj.developers;
+                devs.push(req.body.userId);
+                proj.developers = devs;
+            //res.json(proj);
             proj.save()
-                .then(() => res.json('Updated succesfully'))
+                .then(() => res.json('Added succesfully'))
                 .catch( err => res.status(400).json('Error ' + err))
         })
 });
