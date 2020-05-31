@@ -91,7 +91,7 @@ router.route('/findTasks').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error' + err))
 });
 
-router.route('/addDev').post((req, res) => {
+router.route('/addDev').post(authMiddleWare, (req, res) => {
     let devs;
 
     Project.findById(req.body.projId)
