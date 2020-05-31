@@ -1,25 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const projectSchema = new Schema({
-        project_name: {
+        name: {
             type: String,
             required: true,
             unique: true,
             trim: true,
             minlength: 5,
         },
-        project_description: {
+        description: {
             type: String,
             trim: true,
         },
-        project_administrator: {
-            type: Object
+        administrator: {
+            type: String
         },
-        project_customer: {
-            type: Object,
+        customer: {
+            type: String,
         },
         developers: {
-            type: [Object],
+            type: [String],
+        },
+        tasksIds: {
+            type: [String],
+        },
+        start_date: {
+            type: Date,
+        },
+        end_date: {
+            type: Date,
         }
     },
     {

@@ -11,17 +11,22 @@ router.route('/').get(authMiddleWare, (req, res) => {
 
 router.route('/add').post(authMiddleWare, (req, res) => {
 
-    const project_name = req.body.project_name;
-    const project_description = req.body.project_description;
-    const project_administrator = req.body.project_administrator;
-    const project_customer = req.body.project_customer;
+    const name = req.body.name;
+    const description = req.body.description;
+    const administrator = req.body.administrator;
+    const customer = req.body.customer;
     const developers = req.body.developers;
+    const start_date = req.body.start_date;
+    const end_date = req.body.end_date;
+    //const tasksIds = req.body.tasksIds;
 
     const NewProject = new Project({
-        project_name,
-        project_description,
-        project_administrator,
-        project_customer,
+        name,
+        description,
+        start_date,
+        end_date,
+        administrator,
+        customer,
         developers,
     });
 

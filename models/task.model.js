@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-        username: {
+        name:{
+            type:String
+        },
+        userId: {
             type: String,
             required: true,
         },
@@ -17,6 +20,9 @@ const taskSchema = new Schema({
         date: {
             type: Date,
             required: true,
+        },
+        isCompleted:{
+            type: Boolean,
         }
     },
     {
