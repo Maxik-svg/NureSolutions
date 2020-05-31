@@ -17,7 +17,7 @@ router.route('/:id').get(authMiddleWare, (req, res) => {
        .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/register').post(authMiddleWare, (req, res) => {
+router.route('/register').post((req, res) => {
 
    const username = req.body.username;
    const login = req.body.login;
