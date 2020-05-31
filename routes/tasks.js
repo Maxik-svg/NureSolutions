@@ -49,10 +49,12 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
    Task.findById(req.params.id)
        .then(exercise => {
-         exercise.username = req.body.username;
-         exercise.description = req.body.description;
-         exercise.duration = Number(req.body.duration);
-         exercise.date = Date.parse(req.body.date);
+           exercise.name = req.body.name;
+           exercise.userId = req.body.userId;
+           exercise.description = req.body.description;
+           exercise.date_start = Date.parse(req.body.date_start);
+           exercise.date_end = Date.parse(req.body.date_end);
+           exercise.isCompleted = req.body.isCompleted;
 
          exercise.save()
              .then(() => res.json('Updated succesfully'))
