@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Project = require('../models/project.model');
+let Task = require('../models/task.model');
 let User = require('../models/user.model');
 const authMiddleWare = require('../middleware/auth');
 
@@ -10,7 +11,7 @@ router.route('/').get(authMiddleWare, (req, res) => {
 });
 
 router.route('/:id').get(authMiddleWare, (req, res) =>{
-    let data = {projects:[]};
+    //let data = {projects:[]};
 
     Project.find({administrator: req.params.id})
         .then(projects => res.json(projects))
@@ -42,7 +43,6 @@ router.route('/add').post(authMiddleWare, (req, res) => {
     const developers = req.body.developers;
     const start_date = req.body.start_date;
     const end_date = req.body.end_date;
-    //const tasksIds = req.body.tasksIds;
 
     const NewProject = new Project({
         name,
@@ -62,26 +62,44 @@ router.route('/add').post(authMiddleWare, (req, res) => {
 
 router.route('/update/:id').post((req, res) => {
     Task.findById(req.params.id)
-        .then(user => {
-            user.name = req.body.name;
-            user.description = req.body.description;
-            user.administrator = req.body.admin;
-            user.customer = req.body.customer;
-            user.developers = req.body.developers;
-            user.start_date = req.body.start_date;
-            user.end_date = req.body.end_date;
+        .then(proj => {
+            proj.name = req.body.name;
+            proj.description = req.body.description;
+            proj.administrator = req.body.admin;
+            proj.customer = req.body.customer;
+            proj.developers = req.body.developers;
+            proj.start_date = req.body.start_date;
+            proj.end_date = req.body.end_date;
 
-            user.save()
+            proj.save()
                 .then(() => res.json('Updated succesfully'))
                 .catch( err => res.status(400).json('Error ' + err))
         })
 
 });
 
-router.route('/:name/devs').get(authMiddleWare, (req, res) =>{
-    Project.find({name: req.params.name})
+router.route('/:id/devs').get(authMiddleWare, (req, res) =>{
+    Project.find({_id: req.params.id})
         .then(projects => res.json(projects[0].developers))
         .catch(err => res.status(400).json('Error' + err))
+});
+
+
+router.route('/findTasks').get(authMiddleWare, (req, res) => {
+    Task.find({userId: req.body.userId, projectId: req.body.projId})
+        .then(tasks => res.json(tasks))
+        .catch(err => res.status(400).json('Error' + err))
+});
+
+router.route('/addDev/:projId/:userId').post(authMiddleWare, (req, res) => {
+    Project.findById(req.params.projId)
+        .then(proj => {
+            proj.developers.push(req.params.userId);
+
+            proj.save()
+                .then(() => res.json('Updated succesfully'))
+                .catch( err => res.status(400).json('Error ' + err))
+        })
 });
 
 module.exports = router;

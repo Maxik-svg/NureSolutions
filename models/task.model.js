@@ -9,6 +9,9 @@ const taskSchema = new Schema({
             type: String,
             required: true,
         },
+        projectId: {
+            type: String,
+        },
         description: {
             type: String,
             required: true,

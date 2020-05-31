@@ -36,7 +36,22 @@ newUser.save()
     .catch(err => res.status(400).json('Error' + err))
 });
 
-router.route('/login').post(authMiddleWare, (req, res) => {
+router.route('/update/:id').post(authMiddleWare, (req, res) => {
+   User.findById(req.params.id)
+       .then(user => {
+          user.username = req.body.username;
+          user.login = req.body.login;
+          user.password = bCrypt.hashSync(req.body.password, 10);
+          user.email = req.body.email;
+
+          user.save()
+              .then(() => res.json('Updated succesfully'))
+              .catch( err => res.status(400).json('Error ' + err))
+       })
+
+});
+
+router.route('/login').post((req, res) => {
 
    const login = req.body.login;
    const password = req.body.password;

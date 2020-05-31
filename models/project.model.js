@@ -21,9 +21,6 @@ const projectSchema = new Schema({
         developers: {
             type: [String],
         },
-        tasksIds: {
-            type: [String],
-        },
         start_date: {
             type: Date,
         },

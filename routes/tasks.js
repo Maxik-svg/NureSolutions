@@ -1,26 +1,29 @@
 const router = require('express').Router();
 let Task = require('../models/task.model');
+let User = require('../models/user.model');
 
-const middleAuth = require('../middleware/auth');
+const authMiddleWare = require('../middleware/auth');
 
 router.route('/').get((req, res) => {
     Task.find()
-        .then(exercise => res.json(exercise))
+        .then(task => res.json(task))
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/add').post(middleAuth, (req, res) => {
+router.route('/add').post(authMiddleWare, (req, res) => {
     const name = req.body.name;
     const userId = req.body.userId;
     const description = req.body.description;
     const date_start = Date.parse(req.body.date_start);
     const date_end = Date.parse(req.body.date_end);
     const isCompleted = req.body.isCompleted;
+    const projectId = req.body.projectId;
 
 
     const NewTask = new Task({
         name,
         userId,
+        projectId,
         description,
         date_start,
         date_end,
@@ -34,29 +37,30 @@ router.route('/add').post(middleAuth, (req, res) => {
 });
 
 
-router.route('/:id').get(middleAuth, (req, res) => {
+router.route('/:id').get(authMiddleWare, (req, res) => {
    Task.findById(req.params.id)
-       .then(exercise => res.json(exercise))
+       .then(task => res.json(task))
        .catch(err => res.status(400).json('Error' + err));
 });
 
-router.route('/:id').delete(middleAuth, (req, res) => {
+router.route('/:id').delete(authMiddleWare, (req, res) => {
    Task.findByIdAndDelete(req.params.id)
        .then(() => res.json('Task deleted'))
        .catch(err => res.status(400).json('Error' + err));
 });
 
-router.route('/update/:id').post(middleAuth, (req, res) => {
+router.route('/update/:id').post(authMiddleWare, (req, res) => {
    Task.findById(req.params.id)
-       .then(exercise => {
-           exercise.name = req.body.name;
-           exercise.userId = req.body.userId;
-           exercise.description = req.body.description;
-           exercise.date_start = Date.parse(req.body.date_start);
-           exercise.date_end = Date.parse(req.body.date_end);
-           exercise.isCompleted = req.body.isCompleted;
+       .then(task => {
+           task.name = req.body.name;
+           task.userId = req.body.userId;
+           task.projectId = req.body.projectId;
+           task.description = req.body.description;
+           task.date_start = Date.parse(req.body.date_start);
+           task.date_end = Date.parse(req.body.date_end);
+           task.isCompleted = req.body.isCompleted;
 
-         exercise.save()
+         task.save()
              .then(() => res.json('Updated succesfully'))
              .catch( err => res.status(400).json('Error ' + err))
        })
