@@ -23,6 +23,12 @@ router.route('/:id').get(authMiddleWare, (req, res) =>{
         .catch(err => res.status(400).json('Error' + err));
 });
 
+router.route('/getProject/:id').get(authMiddleWare, (req, res) =>{
+    Project.findById(req.params.id)
+        .then(projects => res.json(projects))
+        .catch(err => res.status(400).json('Error' + err));
+});
+
 router.route('/:name').get(authMiddleWare, (req, res) =>{
     Project.find({name: req.params.name})
         .then(projects => res.json(projects))
