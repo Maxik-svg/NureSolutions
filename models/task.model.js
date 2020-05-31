@@ -13,16 +13,17 @@ const taskSchema = new Schema({
             type: String,
             required: true,
         },
-        duration: {
-            type: Number,
+        date_start: {
+            type: Date,
             required: true,
         },
-        date: {
+        date_end:{
             type: Date,
             required: true,
         },
         isCompleted:{
             type: Boolean,
+            default: false,
         }
     },
     {
