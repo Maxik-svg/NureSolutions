@@ -82,15 +82,15 @@ router.route('/:id/devs').get(authMiddleWare, (req, res) =>{
     let devsList;
     let developersData;
     Project.find({_id: req.params.id})
-        .then(projects => devsList = projects[0].developers)
+        .then(projects => res.json(projects[0].developers))
         .catch(err => res.status(400).json('Error' + err))
-    for (let i = 0; i < devsList.length; i++){
+    /*for (let i = 0; i < devsList.length; i++){
         User.findById(devsList[i])
             .then(devData => developersData.push(devData))
             .catch(err => res.status(400).json('Error' + err))
-    }
+    }*/
 
-    res.json(developersData);
+    //res.json(developersData);
 });
 
 
