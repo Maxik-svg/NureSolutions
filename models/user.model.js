@@ -11,7 +11,7 @@ const userSchema = new Schema({
             minlength: 3
         },
         image:{
-            type: File
+            type: String
         },
         login: {
             type: String,
