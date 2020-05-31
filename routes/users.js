@@ -12,9 +12,9 @@ router.route('/').get(authMiddleWare, (req, res) => {
 });
 
 router.route('/:id').get(authMiddleWare, (req, res) => {
-   User.findById(req.params.id)
-       .then(user => res.json(user))
-       .catch(err => res.status(400).json('Error: ' + err))
+    User.findById(req.params.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json('Error: ' + err))
 });
 
 router.route('/register').post((req, res) => {

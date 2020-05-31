@@ -4,7 +4,7 @@ let User = require('../models/user.model');
 
 const authMiddleWare = require('../middleware/auth');
 
-router.route('/').get((req, res) => {
+router.route('/').get(authMiddleWare, (req, res) => {
     Task.find()
         .then(task => res.json(task))
         .catch(err => res.status(400).json('Error: ' + err))
