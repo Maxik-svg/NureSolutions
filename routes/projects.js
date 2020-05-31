@@ -13,7 +13,7 @@ router.route('/add').post(authMiddleWare, (req, res) => {
 
     const name = req.body.name;
     const description = req.body.description;
-    const administrator = req.body.administrator;
+    const administrator = req.body.admin;
     const customer = req.body.customer;
     const developers = req.body.developers;
     const start_date = req.body.start_date;
