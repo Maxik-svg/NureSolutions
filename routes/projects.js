@@ -9,9 +9,8 @@ router.route('/').get(authMiddleWare, (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/:id').get( (req, res) =>{
+router.route('/:id').get(authMiddleWare, (req, res) =>{
     let data = {project:[], user:[]};
-
 
     Project.find({administrator: req.params.id})
         .then(projects => data.project = projects)
