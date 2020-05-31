@@ -15,6 +15,12 @@ router.route('/:id').get(authMiddleWare, (req, res) =>{
         .catch(err => res.status(400).json('Error' + err))
 });
 
+router.route('/:name').get(authMiddleWare, (req, res) =>{
+    Project.find({name: req.params.name})
+        .then(projects => res.json(projects))
+        .catch(err => res.status(400).json('Error' + err))
+});
+
 router.route('/add').post(authMiddleWare, (req, res) => {
 
     const name = req.body.name;
