@@ -70,7 +70,7 @@ router.route('/update/:id').post(authMiddleWare, (req, res) => {
 router.route('/markAsDone/:id').post(authMiddleWare, (req, res) => {
     Task.findById(req.params.id)
         .then(task => {
-            task.isCompleted = true;
+            task.isCompleted = !task.isCompleted;
 
             task.save()
                 .then(() => res.json('task marked'))
