@@ -10,10 +10,10 @@ router.route('/').get(authMiddleWare, (req, res) => {
 });
 
 router.route('/:id').get(authMiddleWare, (req, res) =>{
-    let data = {project:[], user:[]};
+    let data = {projects:[], user:[]};
 
     Project.find({administrator: req.params.id})
-        .then(projects => data.project = projects)
+        .then(projects => data.projects = projects)
         .catch(err => res.status(400).json('Error' + err));
     User.findById(req.params.id)
         .then(user => {
@@ -53,6 +53,24 @@ router.route('/add').post(authMiddleWare, (req, res) => {
     NewProject.save()
         .then(() => res.json('Added Succesfully'))
         .catch(err => res.status(400).json('Error' + err));
+
+});
+
+router.route('/update/:id').post((req, res) => {
+    Task.findById(req.params.id)
+        .then(user => {
+            user.name = req.body.name;
+            user.description = req.body.description;
+            user.administrator = req.body.admin;
+            user.customer = req.body.customer;
+            user.developers = req.body.developers;
+            user.start_date = req.body.start_date;
+            user.end_date = req.body.end_date;
+
+            user.save()
+                .then(() => res.json('Updated succesfully'))
+                .catch( err => res.status(400).json('Error ' + err))
+        })
 
 });
 

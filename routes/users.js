@@ -5,19 +5,19 @@ const bCrypt = require('bcrypt');
 
 const auth = require('../auth');
 
-router.route('/').get((req, res) => {
+router.route('/').get(authMiddleWare, (req, res) => {
    User.find()
        .then(users => res.json(users))
        .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(authMiddleWare, (req, res) => {
    User.findById(req.params.id)
        .then(user => res.json(user))
        .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/register').post((req, res) => {
+router.route('/register').post(authMiddleWare, (req, res) => {
 
    const username = req.body.username;
    const login = req.body.login;
@@ -36,7 +36,7 @@ newUser.save()
     .catch(err => res.status(400).json('Error' + err))
 });
 
-router.route('/login').post( (req, res) => {
+router.route('/login').post(authMiddleWare, (req, res) => {
 
    const login = req.body.login;
    const password = req.body.password;
@@ -45,7 +45,7 @@ router.route('/login').post( (req, res) => {
 
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(authMiddleWare, (req, res) => {
 
    const username = req.body.username;
    const NewUser = new User({username});

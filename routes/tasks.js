@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Task = require('../models/task.model');
 
-//const middleAuth = require('../middleware/auth');
+const middleAuth = require('../middleware/auth');
 
 router.route('/').get((req, res) => {
     Task.find()
@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(middleAuth, (req, res) => {
     const name = req.body.name;
     const userId = req.body.userId;
     const description = req.body.description;
@@ -34,19 +34,19 @@ router.route('/add').post((req, res) => {
 });
 
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(middleAuth, (req, res) => {
    Task.findById(req.params.id)
        .then(exercise => res.json(exercise))
        .catch(err => res.status(400).json('Error' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.route('/:id').delete(middleAuth, (req, res) => {
    Task.findByIdAndDelete(req.params.id)
        .then(() => res.json('Task deleted'))
        .catch(err => res.status(400).json('Error' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').post(middleAuth, (req, res) => {
    Task.findById(req.params.id)
        .then(exercise => {
            exercise.name = req.body.name;
